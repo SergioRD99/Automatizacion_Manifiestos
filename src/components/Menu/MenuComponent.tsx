@@ -1,6 +1,7 @@
 import { Menu } from '@mui/icons-material'
-import { Box, Drawer, IconButton, Typography } from '@mui/material'
+import { Box, Drawer, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function MenuComponent() {
     const [open, setOpen] = React.useState(false)
@@ -19,7 +20,19 @@ export default function MenuComponent() {
                 <Typography variant='h6' component='div'>
                 Ciosa AutoTodo
                 </Typography>
-            </Box>
+                <List>
+                    <ListItem onClick={() => setOpen(false)}>
+                        <ListItemText>
+                            <Link to="/" style={{textDecoration: 'none', color: 'inherit'}}>Manifiesto</Link>
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem onClick={() => setOpen(false)}>
+                        <ListItemText>
+                            <Link to="/historico" style={{textDecoration: 'none', color: 'inherit'}}>Historico</Link>
+                        </ListItemText>
+                    </ListItem>
+                </List>
+            </Box>       
         </Drawer>
     </>    
   )
