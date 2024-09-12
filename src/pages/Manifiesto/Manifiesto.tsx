@@ -3,6 +3,7 @@ import type { ManifestForm } from "./ManifiestoTypes"
 import { TextField, Select, MenuItem, Button, Typography, SelectChangeEvent } from "@mui/material"
 
 
+
 export default function Manifiesto() {
 
   const [formData, setFormData] = useState<ManifestForm>({
@@ -53,7 +54,7 @@ export default function Manifiesto() {
           className="flex flex-col gap-4 max-w-6xl mx-auto mt-8"
         >
           <Typography variant="h4" className="text-center mb-4">
-            Formulario de Manifiesto
+            Generar Manifiesto
           </Typography>
 
           {/* Fecha de Recolección */}
@@ -201,19 +202,16 @@ export default function Manifiesto() {
             className="mb-4"
           />               
         </form>
-          <div
-             className="flex flex-col gap-4 max-w-6xl mx-auto mt-8 items-center">
-                {/* Botón de envío */}
-                <Button 
-              type="submit" 
-              variant="contained" 
-              color="primary"
-              className="rounded-lg w-full max-w-s mx-auto"
-              fullWidth
-            >
+        <div className="flex flex-col gap-4 max-w-6xl mx-auto mt-8 items-end">
+          <Button 
+            type="submit" 
+            variant="contained" 
+            color="primary"
+            className="rounded-lg w-56 max-w-screen-w-full" 
+          >
             Enviar
           </Button> 
-          </div>
+        </div>
       </>
   )
 }
