@@ -14,7 +14,7 @@ export default function MenuComponent() {
   return (
     <>
     <IconButton size='large' edge='start' color='inherit' aria-label='logo' onClick={() => setOpen(true)}>
-      <Menu sx={{color:'white', fontSize:'2.5rem'}} className='ml-6'/>
+      <Menu sx={{color:'white', fontSize:'2.0rem'}} className='ml-6'/>
     </IconButton>
     <Drawer
       anchor='left'
