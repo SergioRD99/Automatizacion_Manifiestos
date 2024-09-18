@@ -6,24 +6,38 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
+import { getData } from '../../services/apiServices';
+import { useEffect, useState } from 'react';
+import type { HistoricoTypes } from './HistoricoTypes';
 
-function createData(
-  numero: number,
-  name: string,
-  status: string,
-  bitacora: string,
 
-) {
-  return { numero,name, status, bitacora };
-}
-
-// Datos de ejemplo
-const rows = [
-  createData(1, 'Manifiesto', 'En bitácora', 'Bitácora 1'),
-  createData(2, 'Manifiesto', 'Incompleto', 'Bitácora 2'),
-  createData(3, 'Manifiesto', 'Pendiente Recat', 'Bitácora 7'),
-];
 export default function Historico() {
+    
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getData();
+        console.log(result)
+  
+      } catch (error: any) {
+        console.log(error)
+      } finally {
+       
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
+  const [] = useState<HistoricoTypes[]>([])
+  // Datos de ejemplo
+  const rows: HistoricoTypes[] = [
+    { numeroManifiesto: 1, manifiesto: 'Manifiesto A', status: 'En bitácora', bitacora: 'Bitácora 1' },
+    { numeroManifiesto: 2, manifiesto: 'Manifiesto B', status: 'Incompleto', bitacora: 'Bitácora 2' },
+    { numeroManifiesto: 3, manifiesto: 'Manifiesto C', status: 'Pendiente Recat', bitacora: 'Bitácora 7' },
+    
+  ];
+
   return (
     <>
       <div className='py-5'>
@@ -46,9 +60,9 @@ export default function Historico() {
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <TableRow key={row.numero}>
-                  <TableCell>{row.numero}</TableCell>
-                  <TableCell>{row.name}</TableCell>
+                <TableRow key={row.numeroManifiesto}>
+                  <TableCell>{row.numeroManifiesto}</TableCell>
+                  <TableCell>{row.manifiesto}</TableCell>
                   <TableCell>{row.status}</TableCell>
                   <TableCell>{row.bitacora}</TableCell>
                 </TableRow>

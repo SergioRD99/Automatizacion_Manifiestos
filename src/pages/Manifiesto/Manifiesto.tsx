@@ -1,10 +1,11 @@
 import { useState } from "react";
 import type { ManifestForm } from "./ManifiestoTypes"
 import { TextField, Select, MenuItem, Button, Typography, SelectChangeEvent } from "@mui/material"
-
+import ModalDestinos from "../../components/Destinos/ModalDestinos";
 
 
 export default function Manifiesto() {
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const [formData, setFormData] = useState<ManifestForm>({
     fechaRecoleccion: '',
@@ -15,8 +16,8 @@ export default function Manifiesto() {
     transporte: '',
     operador: '',
     fechaEntrega: '',
-    numeroPlacas: 0,
-    recat: 0,
+    numeroPlacas: '',
+    recat: '',
     fechaEntregaScursal: '',
     observaciones: ''
   });
@@ -43,10 +44,13 @@ export default function Manifiesto() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setDialogOpen(true);
     console.log(formData);
   };
 
-
+  const handleDialogClose = () => {
+    setDialogOpen(false); // Cerrar el modal
+  };
   return (
       <>
         <form
@@ -157,8 +161,7 @@ export default function Manifiesto() {
           {/* Número de Placas */}
           <TextField
             label="Número de Placas"
-            name="numeroPlacas"
-            type="number"
+            name="numeroPlacas"          
             value={formData.numeroPlacas}
             onChange={handleChange}
             fullWidth
@@ -169,8 +172,7 @@ export default function Manifiesto() {
           {/* RECAT */}
           <TextField
             label="RECAT"
-            name="recat"
-            type="number"
+            name="recat"         
             value={formData.recat}
             onChange={handleChange}
             fullWidth
@@ -201,17 +203,29 @@ export default function Manifiesto() {
             fullWidth
             className="mb-4"
           />               
-        </form>
-        <div className="flex flex-col gap-4 max-w-6xl mx-auto mt-8 items-end">
-          <Button 
-            type="submit" 
-            variant="contained" 
-            color="primary"
-            className="rounded-lg w-56 max-w-screen-w-full" 
-          >
-            Enviar
-          </Button> 
+         <div className="flex gap-4 max-w-6xl mx-auto mt-8 items-end max-md:flex-col">
+            <Button
+              variant="contained"
+              color="primary"
+              className="w-80 text-sm md:text-base py-2 md:py-3 rounded-lg"
+            >
+              Guardar
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className="w-80 text-sm md:text-base py-2 md:py-3 rounded-lg"
+            >
+              Siguiente
+            </Button>
         </div>
+        </form>       
+          <ModalDestinos
+            open={dialogOpen}
+            onClose={handleDialogClose}
+            >
+         </ModalDestinos> 
       </>
   )
 }

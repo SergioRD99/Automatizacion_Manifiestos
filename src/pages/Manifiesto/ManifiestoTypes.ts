@@ -7,8 +7,8 @@ export type ManifestForm = {
     transporte:string,
     operador:string,
     fechaEntrega:string,
-    numeroPlacas:number
-    recat:number,
+    numeroPlacas:string,
+    recat:string,
     fechaEntregaScursal:string,
     observaciones:string
 }
