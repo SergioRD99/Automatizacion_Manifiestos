@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { ManifestForm } from "./ManifiestoTypes"
-import { TextField, Select, MenuItem, Button, Typography, SelectChangeEvent } from "@mui/material"
+import { TextField, Select, MenuItem, Button, Typography, SelectChangeEvent, InputLabel, FormControl } from "@mui/material"
 import ModalDestinos from "../../components/Destinos/ModalDestinos";
 
 
@@ -51,6 +51,8 @@ export default function Manifiesto() {
   const handleDialogClose = () => {
     setDialogOpen(false); // Cerrar el modal
   };
+
+  
   return (
       <>
         <form
@@ -77,14 +79,14 @@ export default function Manifiesto() {
             label="Número de Manifiesto"
             name="numeroManifiesto"
             type="number"
-            value={formData.numeroManifiesto}
+            value={formData.numeroManifiesto > 0 ? formData.numeroManifiesto : String('')}
             onChange={handleChange}
             fullWidth
             required
             className="mb-4"
           />
 
-          <div className="flex gap-4 mb-4">
+          <div className="grid gap-4 mb-4 max-md:flex-col grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {/* Razón Social */}
               <TextField
                 label="Razón Social"
@@ -93,37 +95,47 @@ export default function Manifiesto() {
                 onChange={handleChange}
                 fullWidth
                 required
-                className="flex-1"
+                className="w-full"
               />
 
               {/* Municipio */}
-              <TextField
+               <TextField
                 label="Municipio"
                 name="municipio"
                 value={formData.municipio}
                 onChange={handleChange}
                 fullWidth
                 required
-                className="flex-1"
+                disabled
+                className="w-full"
+                slotProps={{
+                  input:{
+                    readOnly:true, // Campo solo lectura
+                  }                    
+                }}
               />
 
               {/* Estado */}
-              <Select
-                label="Estado"
-                name="estado"
-                value={formData.estado}
-                onChange={handleSelectChange}
-                fullWidth
-                required
-                className="flex-1"
-              >
-                <MenuItem value="">Selecciona un estado</MenuItem>
-                <MenuItem value="estado1">Estado 1</MenuItem>
-                <MenuItem value="estado2">Estado 2</MenuItem>
-              </Select>
-          </div>
+              <FormControl fullWidth>
+                <InputLabel id="estado-label">Estado</InputLabel>
+                <Select
+                  labelId="estado-label"
+                  name="estado"
+                  value={formData.estado}
+                  onChange={handleSelectChange}
+                  fullWidth
+                  disabled  // Opción para deshabilitar si es necesario
+                  className="w-full"
+                >
+                  <MenuItem value="">
+                    <em>Selecciona un estado</em>  {/* Opción por defecto */}
+                  </MenuItem>
+                  <MenuItem value="estado1">Estado 1</MenuItem>
+                  <MenuItem value="estado2">Estado 2</MenuItem>
+                </Select>
+              </FormControl>
 
-          {/* Transporte */}
+              {/* Transporte */}
           <TextField
             label="Transporte"
             name="transporte"
@@ -131,7 +143,7 @@ export default function Manifiesto() {
             onChange={handleChange}
             fullWidth
             required
-            className="mb-4"
+            className="w-full"
           />
 
           {/* Operador */}
@@ -142,7 +154,7 @@ export default function Manifiesto() {
             onChange={handleChange}
             fullWidth
             required
-            className="mb-4"
+            className="w-full"
           />
 
           {/* Fecha de Entrega */}
@@ -155,18 +167,17 @@ export default function Manifiesto() {
             onChange={handleChange}            
             fullWidth
             required
-            className="mb-4"
+            className="w-full"
           />
-
-          {/* Número de Placas */}
-          <TextField
+           {/* Número de Placas */}
+           <TextField
             label="Número de Placas"
             name="numeroPlacas"          
             value={formData.numeroPlacas}
             onChange={handleChange}
             fullWidth
             required
-            className="mb-4"
+            className="w-full"
           />
 
           {/* RECAT */}
@@ -177,7 +188,7 @@ export default function Manifiesto() {
             onChange={handleChange}
             fullWidth
             required
-            className="mb-4"
+            className="w-full"
           />
 
           {/* Fecha de Entrega a Sucursal */}
@@ -189,9 +200,10 @@ export default function Manifiesto() {
             value={formData.fechaEntregaScursal}
             onChange={handleChange}            
             fullWidth
-            className="mb-4"
+            className="w-full"
           />
-
+          </div>
+                 
           {/* Observaciones */}
           <TextField
             label="Observaciones"
@@ -203,11 +215,11 @@ export default function Manifiesto() {
             fullWidth
             className="mb-4"
           />               
-         <div className="flex gap-4 max-w-6xl mx-auto mt-8 items-end max-md:flex-col">
+         <div className="flex gap-4 mx-auto mt-8 max-md:flex-col justify-center w-full">
             <Button
               variant="contained"
               color="primary"
-              className="w-80 text-sm md:text-base py-2 md:py-3 rounded-lg"
+              className="w-5/12 max-md:w-full"
             >
               Guardar
             </Button>
@@ -215,7 +227,7 @@ export default function Manifiesto() {
               type="submit"
               variant="contained"
               color="primary"
-              className="w-80 text-sm md:text-base py-2 md:py-3 rounded-lg"
+              className="w-5/12 max-md:w-full"
             >
               Siguiente
             </Button>

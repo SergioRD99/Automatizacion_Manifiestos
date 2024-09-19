@@ -56,6 +56,7 @@ export default function Historico() {
                 <TableCell>Nombre</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Bitácora</TableCell>
+                <TableCell>Acciones</TableCell>                
               </TableRow>
             </TableHead>
             <TableBody>
@@ -64,7 +65,7 @@ export default function Historico() {
                   <TableCell>{row.numeroManifiesto}</TableCell>
                   <TableCell>{row.manifiesto}</TableCell>
                   <TableCell>{row.status}</TableCell>
-                  <TableCell>{row.bitacora}</TableCell>
+                  <TableCell>{row.bitacora}</TableCell>                  
                 </TableRow>
               ))}
             </TableBody>

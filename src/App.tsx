@@ -8,18 +8,25 @@ import AppBar from "./components/AppBar/AppBar"
 function App() { 
 
   return (
-    <Router>
-      <>
-        <AppBar></AppBar>
+    <div className="app-container">
+      <Router>
+        <AppBar />
 
-        <Routes>
-          <Route path="/" element={<Manifiesto/>}/>
-          <Route path="/historico" element={<Historico/>}/>        
-          <Route path="/recat" element={<RecatView/>}/>
-          <Route path="/unidades" element={<UnidadesView/>}/>    
-        </Routes>
-      </>
-    </Router>
+        {/* Rutas para navegacion  */}
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Manifiesto />} />
+            <Route path="/historico" element={<Historico />} />
+            <Route path="/recat" element={<RecatView />} />
+            <Route path="/unidades" element={<UnidadesView />} />
+          </Routes>
+        </div>
+      </Router>
+        
+      <footer className="mt-10 text-white flex justify-center py-2 bg-[#002D59]">
+        <p className="text-center">© 2024 Ciosa AutoTodo - Todos los derechos reservados.</p>
+      </footer>
+    </div>
   )
 }
 
