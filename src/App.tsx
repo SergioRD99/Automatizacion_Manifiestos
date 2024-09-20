@@ -11,7 +11,6 @@ function App() {
     <div className="app-container">
       <Router>
         <AppBar />
-
         {/* Rutas para navegacion  */}
         <div className="content">
           <Routes>
