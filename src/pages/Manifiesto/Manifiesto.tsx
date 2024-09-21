@@ -22,25 +22,27 @@ export default function Manifiesto() {
     observaciones: ''
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+      ...(name === 'fechaEntrega' && { fechaRecoleccion: value }), // Sincroniza las fechas
+      ...(name === 'razonSocial'&& {municipio:value}),      
+    }));
   };
 
-  // Cambia específico para el select
+
+   // Cambia específico para el select
   const handleSelectChange = (e: SelectChangeEvent<string>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+      ...(name === 'razonSocial' && { estado: value === "razonSocial1" ? "Puebla" : "" })
+    }));
   };
-
+ 
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -64,15 +66,17 @@ export default function Manifiesto() {
           </Typography>
 
           {/* Fecha de Recolección */}
-          <TextField    
+          {formData.fechaRecoleccion && (            
+          <TextField
+            label="Fecha de recoleccion"
             type="date"
             value={formData.fechaRecoleccion}
-            onChange={handleChange}          
-            fullWidth
             disabled
+            fullWidth
             required
             className="mb-4"
           />
+        )}
 
           {/* Número de Manifiesto */}
           <TextField
@@ -123,18 +127,16 @@ export default function Manifiesto() {
                   name="estado"
                   value={formData.estado}
                   onChange={handleSelectChange}
-                  fullWidth
-                  disabled  // Opción para deshabilitar si es necesario
+                  fullWidth               
                   className="w-full"
                 >
                   <MenuItem value="">
                     <em>Selecciona un estado</em>  {/* Opción por defecto */}
                   </MenuItem>
-                  <MenuItem value="estado1">Estado 1</MenuItem>
+                  <MenuItem value="estado1">Puebla</MenuItem>
                   <MenuItem value="estado2">Estado 2</MenuItem>
                 </Select>
               </FormControl>
-
               {/* Transporte */}
           <TextField
             label="Transporte"
