@@ -1,13 +1,11 @@
 import React from 'react';
-import { IconButton, Tooltip, Typography, Button } from '@mui/material';
+import ApplicationButtons from '../../components/AplicationButtons/ApplicationButtons';
+import {Typography, Button } from '@mui/material';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import PendingActionsIcon from '@mui/icons-material/PendingActions';
-import TagIcon from '@mui/icons-material/Tag';
 import type { HistoricoTypes } from './HistoricoTypes';
 import { esES } from '@mui/x-data-grid/locales';
-import RecatView from '../Recat/RecatView';
+
 
 
 const columns: GridColDef[] = [
@@ -19,51 +17,9 @@ const columns: GridColDef[] = [
     field: 'actions',
     headerName: 'Acciones',
     width: 200,
-    renderCell: (params: GridRenderCellParams) => {
-      const navigate = useNavigate();
-      const [open, setOpen] = React.useState(false);
-
-      const handleAction = (status: string) => {
-        if (status === 'Incompleto') {
-          navigate('/');
-        } else if (status === 'Pendiente Recat') {
-          setOpen(true);
-        }
-      };
-
-      return (
-        <>
-          {params.row.status === 'En bitácora' && (
-            <Tooltip title="Completado">
-              <IconButton color="success">
-                <p className="text-sm">Completo</p>
-                <CheckCircleOutlineIcon />
-              </IconButton>
-            </Tooltip>
-          )}
-
-          {params.row.status === 'Incompleto' && (
-            <Tooltip title="Ir al Formulario">
-              <IconButton onClick={() => handleAction(params.row.status)} color="warning">
-                <p className="text-sm">Incompleto</p>
-                <PendingActionsIcon />
-              </IconButton>
-            </Tooltip>
-          )}
-
-          {params.row.status === 'Pendiente Recat' && (
-            <>
-              <Tooltip title="Solicitar Recat">
-                <IconButton onClick={() => handleAction(params.row.status)} color="primary">
-                  <p className="text-sm">Solicitar Recat</p>
-                  <TagIcon />
-                </IconButton>
-              </Tooltip>
-            </>
-          )}
-        </>
-      );
-    },
+    renderCell: (params: GridRenderCellParams) => (
+      <ApplicationButtons status={params.row.status} />
+    ),
   },
 ];
 
@@ -72,13 +28,28 @@ export default function Historico() {
 
   const [rows, setRows] = React.useState<HistoricoTypes[]>([]);
   const [filter, setFilter] = React.useState<string>(''); // Estado para el filtro
-  const [rowsSelect, setRowsSelect] = React.useState<GridRowSelectionModel>([]);
+  const [rowsSelect, setRowsSelect] = React.useState<GridRowSelectionModel>([]); 
   const navigate = useNavigate();
 
-  const exampleRows: (HistoricoTypes & { id: number })[] = [
-    { id: 1, numeroManifiesto: 1, manifiesto: 'Manifiesto A', status: 'En bitácora', bitacora: 'Bitácora 1' },
-    { id: 2, numeroManifiesto: 2, manifiesto: 'Manifiesto B', status: 'Incompleto', bitacora: 'Bitácora 2' },
-    { id: 3, numeroManifiesto: 3, manifiesto: 'Manifiesto C', status: 'Pendiente Recat', bitacora: 'Bitácora 5' },
+  const exampleRows: (HistoricoTypes & {})[] = [
+    { id: 1, numeroManifiesto: 1, manifiesto: 'Manifiesto ', status: 'En bitácora', bitacora: 'Bitácora 1' },
+    { id: 2, numeroManifiesto: 2, manifiesto: 'Manifiesto ', status: 'Incompleto', bitacora: 'Bitácora 2' },
+    { id: 3, numeroManifiesto: 3, manifiesto: 'Manifiesto ', status: 'Pendiente Recat', bitacora: 'Bitácora ' },
+    { id: 4, numeroManifiesto: 4, manifiesto: 'Manifiesto ', status: 'En bitácora', bitacora: 'Bitácora 1' },
+    { id: 5, numeroManifiesto: 5, manifiesto: 'Manifiesto ', status: 'Incompleto', bitacora: 'Bitácora 2' },
+    { id: 6, numeroManifiesto: 6, manifiesto: 'Manifiesto ', status: 'Pendiente Recat', bitacora: 'Bitácora 4' },
+    { id: 7, numeroManifiesto: 7, manifiesto: 'Manifiesto ', status: 'En bitácora', bitacora: 'Bitácora 1' },
+    { id: 8, numeroManifiesto: 8, manifiesto: 'Manifiesto ', status: 'Incompleto', bitacora: 'Bitácora 2' },
+    { id: 9, numeroManifiesto: 9, manifiesto: 'Manifiesto ', status: 'Pendiente Recat', bitacora: 'Bitácora 3' },
+    { id: 10, numeroManifiesto:10, manifiesto: 'Manifiesto ', status: 'En bitácora', bitacora: 'Bitácora 1' },
+    { id: 11, numeroManifiesto:11, manifiesto: 'Manifiesto ', status: 'Incompleto', bitacora: 'Bitácora 2' },
+    { id: 12, numeroManifiesto:12, manifiesto: 'Manifiesto ', status: 'Pendiente Recat', bitacora: 'Bitácora ' },
+    { id: 13, numeroManifiesto:13, manifiesto: 'Manifiesto ', status: 'En bitácora', bitacora: 'Bitácora 1' },
+    { id: 14, numeroManifiesto:14, manifiesto: 'Manifiesto ', status: 'Incompleto', bitacora: 'Bitácora 2' },
+    { id: 15, numeroManifiesto:15, manifiesto: 'Manifiesto ', status: 'Pendiente Recat', bitacora: 'Bitácora 4' },
+    { id: 16, numeroManifiesto:16, manifiesto: 'Manifiesto ', status: 'En bitácora', bitacora: 'Bitácora 1' },
+    { id: 17, numeroManifiesto:17, manifiesto: 'Manifiesto ', status: 'Incompleto', bitacora: 'Bitácora 2' },
+    { id: 18, numeroManifiesto:18, manifiesto: 'Manifiesto ', status: 'Pendiente Recat', bitacora: 'Bitácora 3' },
   ];
 
 
@@ -95,7 +66,7 @@ export default function Historico() {
 
 
   const handleSendSelected = () => {
-    const selectedRows = rows.filter((row) => rowsSelect.includes(row.numeroManifiesto));
+    const selectedRows = rows.filter((row) => rowsSelect.includes(row.id));
     navigate('/recat', { state: { selectedRows } }); // Navegar con las filas seleccionadas
   };
   return (
@@ -122,13 +93,7 @@ export default function Historico() {
         </Button>
       </div>
 
-      {isCheckboxSelectionEnabled &&(
-        <div className='text-center mb-4'>
-            <Button variant='contained' color='primary' onClick={handleSendSelected}>
-              Seleccionado
-            </Button>
-        </div>
-      )}
+      
 
       {/* DataGrid filtrado */}
       <div className="max-w-5xl">
@@ -144,13 +109,20 @@ export default function Historico() {
                 pageSize: 9,
               },
             },
-          }}          
+          }} 
+          onRowSelectionModelChange={(selection) => setRowsSelect(selection)}         
           checkboxSelection={isCheckboxSelectionEnabled} 
           pageSizeOptions={[9]}
           disableRowSelectionOnClick
         />
       </div>
-
+      {isCheckboxSelectionEnabled &&(
+        <div className='text-center mb-4'>
+            <Button variant='contained' color='primary' onClick={handleSendSelected}>
+              Seleccionado
+            </Button>
+        </div>
+      )}
     </div>
   );
 }
