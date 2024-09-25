@@ -11,7 +11,7 @@ import { esES } from '@mui/x-data-grid/locales';
 const columns: GridColDef[] = [
   { field: 'numeroManifiesto', headerName: 'Número', width: 300 },
   { field: 'manifiesto', headerName: 'Manifiesto', width: 300 },
-  { field: 'status', headerName: 'Status', width: 300 },
+  { field: 'status', headerName: 'Estatus', width: 300 },
   { field: 'bitacora', headerName: 'Bitácora', width: 300 },
   {
     field: 'actions',

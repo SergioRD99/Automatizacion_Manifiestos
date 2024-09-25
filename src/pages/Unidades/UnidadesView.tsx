@@ -123,11 +123,16 @@ export default function UnidadesView() {
             </Table>
           </TableContainer>
 
-          <div className="grid justify-end mt-5 w-full">
-              <Button sx={{ width: '20rem', marginRight: '20px' }} variant="contained" endIcon={<AddCircleOutlineIcon />}>
-                 Nuevo Transporte
-              </Button>
-          </div>
+              <div className="grid w-full mt-5 justify-center sm:justify-end">
+                <Button 
+                  sx={{ width: '20rem', marginRight: '20px', background:'#002D59' }} 
+                  variant="contained" 
+                  endIcon={<AddCircleOutlineIcon />}
+                >
+                  Nuevo Transporte
+                </Button>
+              </div>
+
           </div>          
         )}
       </div>
