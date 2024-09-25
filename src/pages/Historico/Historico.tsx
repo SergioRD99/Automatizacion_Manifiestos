@@ -45,11 +45,11 @@ export default function Historico() {
     { id: 11, numeroManifiesto:11, manifiesto: 'Manifiesto ', status: 'Incompleto', bitacora: 'Bitácora 2' },
     { id: 12, numeroManifiesto:12, manifiesto: 'Manifiesto ', status: 'Pendiente Recat', bitacora: 'Bitácora ' },
     { id: 13, numeroManifiesto:13, manifiesto: 'Manifiesto ', status: 'En bitácora', bitacora: 'Bitácora 1' },
-    { id: 14, numeroManifiesto:14, manifiesto: 'Manifiesto ', status: 'Incompleto', bitacora: 'Bitácora 2' },
-    { id: 15, numeroManifiesto:15, manifiesto: 'Manifiesto ', status: 'Pendiente Recat', bitacora: 'Bitácora 4' },
-    { id: 16, numeroManifiesto:16, manifiesto: 'Manifiesto ', status: 'En bitácora', bitacora: 'Bitácora 1' },
-    { id: 17, numeroManifiesto:17, manifiesto: 'Manifiesto ', status: 'Incompleto', bitacora: 'Bitácora 2' },
-    { id: 18, numeroManifiesto:18, manifiesto: 'Manifiesto ', status: 'Pendiente Recat', bitacora: 'Bitácora 3' },
+    { id: 14, numeroManifiesto:14, manifiesto: 'Manifiesto ', status: 'Pendiente Recat', bitacora: 'Bitácora 6' },
+    { id: 15, numeroManifiesto:15, manifiesto: 'Manifiesto ', status: 'Pendiente Recat', bitacora: 'Bitácora 3' },
+    { id: 16, numeroManifiesto:16, manifiesto: 'Manifiesto ', status: 'En bitácora', bitacora: 'Bitácora 10' },
+    { id: 17, numeroManifiesto:17, manifiesto: 'Manifiesto ', status: 'Pendiente Recat', bitacora: 'Bitácora 9' },
+    { id: 18, numeroManifiesto:18, manifiesto: 'Manifiesto ', status: 'Pendiente Recat', bitacora: 'Bitácora 9' },
   ];
 
 
@@ -82,16 +82,38 @@ export default function Historico() {
 
       {/* Botones de filtro */}
       <div className="mb-4 text-center">
-        <Button variant="outlined" onClick={() => setFilter('En bitácora')}>
+        <Button
+          sx={{ marginRight: '1rem', backgroundColor: filter === 'En bitácora' ? 'blue' : 'transparent', color: filter === 'En bitácora' ? 'white' : 'black' }}
+          variant="outlined"
+          onClick={() => setFilter('En bitácora')}
+        >
           En Bitácora
         </Button>
-        <Button variant="outlined" onClick={() => setFilter('Incompleto')} className="ml-2">
+
+        <Button
+          sx={{ marginRight: '1rem', backgroundColor: filter === 'Incompleto' ? 'blue' : 'transparent', color: filter === 'Incompleto' ? 'white' : 'black' }}
+          variant="outlined"
+          onClick={() => setFilter('Incompleto')}
+          className="ml-2"
+        >
           Incompletos
         </Button>
-        <Button variant="outlined" onClick={() => setFilter('Pendiente Recat')} className="ml-2">
+
+        <Button
+          sx={{ marginRight: '1rem', backgroundColor: filter === 'Pendiente Recat' ? 'blue' : 'transparent', color: filter === 'Pendiente Recat' ? 'white' : 'black' }}
+          variant="outlined"
+          onClick={() => setFilter('Pendiente Recat')}
+          className="ml-2"
+        >
           Pendientes de Recat
         </Button>
-        <Button variant="outlined" onClick={() => setFilter('')} className="ml-2">
+
+        <Button
+          sx={{ backgroundColor: filter === '' ? 'blue' : 'transparent', color: filter === '' ? 'white' : 'black' }}
+          variant="outlined"
+          onClick={() => setFilter('')}
+          className="ml-2"
+        >
           Mostrar Todos
         </Button>
       </div>

@@ -1,57 +1,63 @@
-import Switch from '@mui/material/Switch';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { styled } from '@mui/material/styles';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 
-const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-  width: 62,
-  height: 34,
-  padding: 7,
-  '& .MuiSwitch-switchBase': {
-    margin: 1,
-    padding: 0,
-    transform: 'translateX(6px)',
-    '&.Mui-checked': {
-      color: '#fff',
-      transform: 'translateX(22px)',
-      '& + .MuiSwitch-track': {
-        opacity: 1,
-        backgroundColor: '#003892', // Azul oscuro para el fondo del switch cuando está activado
-      },
+const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ }) => ({
+  borderRadius: 20,
+  border: '1px solid #003892',
+  overflow: 'hidden',
+}));
+
+const StyledToggleButton = styled(ToggleButton)(({ }) => ({
+  fontWeight: 'bold',
+  fontSize: '14px',
+  padding: '8px 16px',
+  color: '#003892',
+  transition: 'background-color 0.3s ease, color 0.3s ease, transform 0.3s ease',
+  '&.Mui-selected': {
+    backgroundColor: '#003892',
+    color: '#fff',
+    transform: 'scale(1.05)',
+    '&:hover': {
+      backgroundColor: '#002766',
     },
   },
-  '& .MuiSwitch-thumb': {
-    backgroundColor: '#003892', // Azul oscuro para el "thumb"
-    width: 32,
-    height: 32,
-  },
-  '& .MuiSwitch-track': {
-    opacity: 1,
-    backgroundColor: '#aab4be', // Color gris claro cuando está desactivado
-    borderRadius: 20 / 2,
+  '&:not(.Mui-selected)': {
+    backgroundColor: '#f0f0f0',
+    color: '#003892',
+    '&:hover': {
+      backgroundColor: '#d9d9d9',
+    },
   },
 }));
 
-type actionProps = {
+type ActionProps = {
   isTogled: boolean;
   handleTogle: () => void;
-  label: string;
 };
 
-export default function SwitchButton({ isTogled, handleTogle }: actionProps) {
+export default function ToggleButtonComponent({ isTogled, handleTogle }: ActionProps) {
+  const selectedValue = isTogled ? 'placas' : 'transportes';
+
+  const handleToggle = (_event: React.MouseEvent<HTMLElement>, newSelected: string) => {
+    if (newSelected !== null) {
+      handleTogle();
+    }
+  };
+
   return (
-    <FormGroup>
-      <FormControlLabel      
-        control={
-          <MaterialUISwitch 
-            sx={{ m: 1 }} 
-            checked={isTogled} 
-            onChange={handleTogle} 
-          />
-        }
-        label="Placas - Transportes"
-        labelPlacement="top"
-      />
-    </FormGroup>
+    <StyledToggleButtonGroup
+      value={selectedValue}
+      exclusive
+      onChange={handleToggle}
+      aria-label="Toggle between Transportes and Placas"
+    >
+      <StyledToggleButton value="transportes" aria-label="Transportes">
+        Transportes
+      </StyledToggleButton>
+      <StyledToggleButton value="placas" aria-label="Placas">
+        Placas
+      </StyledToggleButton>
+    </StyledToggleButtonGroup>
   );
 }

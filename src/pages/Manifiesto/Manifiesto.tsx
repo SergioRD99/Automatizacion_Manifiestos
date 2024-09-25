@@ -28,7 +28,7 @@ export default function Manifiesto() {
       ...prevData,
       [name]: value,
       ...(name === 'fechaEntrega' && { fechaRecoleccion: value }), // Sincroniza las fechas
-      ...(name === 'razonSocial'&& {municipio:value}),      
+      ...(name === 'razonSocial'&& {municipio:value}),
     }));
   };
 

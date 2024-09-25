@@ -11,7 +11,7 @@ export default defineConfig({
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
         name: 'Manifiestos',
-        short_name: 'Vite PWA Project',
+        short_name: 'Manifiestos',
         theme_color: '#ffffff',
         icons: [
             {

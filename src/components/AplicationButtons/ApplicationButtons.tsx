@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ApplicationButtons = ({ status }: { status: string }) => {
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
+  const [, setOpen] = React.useState(false);
 
   const handleAction = (status: string) => {
     if (status === 'Incompleto') {
