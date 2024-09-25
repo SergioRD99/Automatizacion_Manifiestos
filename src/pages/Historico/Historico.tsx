@@ -9,10 +9,10 @@ import { esES } from '@mui/x-data-grid/locales';
 
 
 const columns: GridColDef[] = [
-  { field: 'numeroManifiesto', headerName: 'Número', width: 200 },
-  { field: 'manifiesto', headerName: 'Manifiesto', width: 200 },
-  { field: 'status', headerName: 'Status', width: 200 },
-  { field: 'bitacora', headerName: 'Bitácora', width: 200 },
+  { field: 'numeroManifiesto', headerName: 'Número', width: 300 },
+  { field: 'manifiesto', headerName: 'Manifiesto', width: 300 },
+  { field: 'status', headerName: 'Status', width: 300 },
+  { field: 'bitacora', headerName: 'Bitácora', width: 300 },
   {
     field: 'actions',
     headerName: 'Acciones',
@@ -99,7 +99,7 @@ export default function Historico() {
       
 
       {/* DataGrid filtrado */}
-      <div className="max-w-5xl">
+      <div className="w-full">
         <DataGrid
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           rows={filteredRows} // Filas filtradas
@@ -120,9 +120,9 @@ export default function Historico() {
         />
       </div>
       {isCheckboxSelectionEnabled &&(
-        <div className='text-center mb-4'>
+        <div className='text-end mb-4 mt-5'>
             <Button variant='contained' color='primary' onClick={handleSendSelected}>
-              Seleccionado
+              SIGUIENTE
             </Button>
         </div>
       )}

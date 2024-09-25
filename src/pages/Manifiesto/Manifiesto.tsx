@@ -59,7 +59,7 @@ export default function Manifiesto() {
       <>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-4 max-w-6xl mx-auto mt-8"
+          className="flex flex-col gap-4 max-w-7xl mx-auto mt-8"
         >
           <Typography variant="h4" className="text-center mb-4">
             Generar Manifiesto

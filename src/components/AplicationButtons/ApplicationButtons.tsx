@@ -20,9 +20,9 @@ const ApplicationButtons = ({ status }: { status: string }) => {
   return (
     <>
       {status === 'En bitácora' && (
-        <Tooltip title="Completado">
+        <Tooltip title="En bitácora">
           <IconButton color="success">
-            <p className="text-sm">Completo</p>
+            <p className="text-sm">En bitácora</p>
             <CheckCircleOutlineIcon />
           </IconButton>
         </Tooltip>

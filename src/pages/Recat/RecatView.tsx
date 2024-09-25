@@ -29,9 +29,17 @@ export default function RecatView() {
       prevRows.filter((row) => row.id !== id)
     );
   };
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    alert('Enviado')      
+  };
 
   return (
-    <div className='py-3 m-10'>
+    <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-4 max-w-full mx-auto mt-8"
+    >
+      <div className='py-3 m-10'>
       <Typography variant='h4' align='center'>Solicitar Recat</Typography>
 
       <TableContainer component={Paper} className='mt-10'>
@@ -53,6 +61,7 @@ export default function RecatView() {
                   <TextField
                     value={row.campo1 || ''}
                     onChange={(e) => handleInputChange(row.id, 'campo1', e.target.value)}
+                    required
                     fullWidth
                   />
                 </TableCell>
@@ -60,6 +69,7 @@ export default function RecatView() {
                   <TextField
                     value={row.campo2 || ''}
                     onChange={(e) => handleInputChange(row.id, 'campo2', e.target.value)}
+                    required
                     fullWidth
                   />
                 </TableCell>
@@ -78,6 +88,7 @@ export default function RecatView() {
 
       <div className='mt-5 w-full text-end grid justify-center'>
         <Button
+        type='submit'
           sx={{
             width: '15.5rem',
             borderRadius: '1rem',
@@ -87,9 +98,10 @@ export default function RecatView() {
           className='max-md:w-full'
           variant='outlined'
         >
-          Enviar
+          Solicitar Recat
         </Button>
       </div>
     </div>
+    </form>
   );
 }
