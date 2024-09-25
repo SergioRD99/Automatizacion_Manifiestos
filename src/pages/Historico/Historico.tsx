@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import ApplicationButtons from '../../components/AplicationButtons/ApplicationButtons';
 import {Typography, Button } from '@mui/material';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel } from '@mui/x-data-grid';
@@ -57,10 +57,13 @@ export default function Historico() {
     setRows(exampleRows);
   }, []);
 
-  const filteredRows = rows.filter((row) => {
-    if (!filter) return true;
-    return row.status === filter;
-  });
+  const filteredRows = useMemo(() => {
+    return rows.filter((row) => {
+      if (!filter) return true;
+      return row.status === filter;
+    });
+  }, [rows, filter]);
+  
 
   const isCheckboxSelectionEnabled = filter === 'Pendiente Recat';
 

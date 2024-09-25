@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import { Button, TextField, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Button, TextField, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 type RowData = {
   id: number;
@@ -20,6 +21,12 @@ export default function RecatView() {
       prevRows.map((row) =>
         row.id === id ? { ...row, [field]: value } : row
       )
+    );
+  };
+
+  const deleteRow = (id: number) => {
+    setRows((prevRows) =>
+      prevRows.filter((row) => row.id !== id)
     );
   };
 
@@ -55,6 +62,13 @@ export default function RecatView() {
                     onChange={(e) => handleInputChange(row.id, 'campo2', e.target.value)}
                     fullWidth
                   />
+                </TableCell>
+                <TableCell>
+                  <IconButton
+                    onClick={()=>deleteRow(row.id)}
+                    >
+                    <DeleteIcon/>
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
