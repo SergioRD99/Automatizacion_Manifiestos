@@ -81,7 +81,7 @@ export default function Historico() {
       </div>
 
       {/* Botones de filtro */}
-      <div className="mb-4 text-center">
+      <div className="flex flex-col md:flex-row md:justify-center md:items-center mb-5">
         <Button
           sx={{ marginRight: '1rem', backgroundColor: filter === 'En bitácora' ? 'blue' : 'transparent', color: filter === 'En bitácora' ? 'white' : 'black' }}
           variant="outlined"
@@ -109,7 +109,7 @@ export default function Historico() {
         </Button>
 
         <Button
-          sx={{ backgroundColor: filter === '' ? 'blue' : 'transparent', color: filter === '' ? 'white' : 'black' }}
+          sx={{  marginRight: '1rem', backgroundColor: filter === '' ? 'blue' : 'transparent', color: filter === '' ? 'white' : 'black' }}
           variant="outlined"
           onClick={() => setFilter('')}
           className="ml-2"
@@ -121,11 +121,12 @@ export default function Historico() {
       
 
       {/* DataGrid filtrado */}
-      <div className="w-full">
+      <div className="w-full overflow-x-auto">
         <DataGrid
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           rows={filteredRows} // Filas filtradas
           columns={columns}
+          autoHeight
           pagination
           paginationMode="client"
           initialState={{
