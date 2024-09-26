@@ -60,14 +60,18 @@ export default function UnidadesView() {
           <div>
             <TableContainer 
               component={Paper} 
-              sx={{ width: 'calc(100vw - 150px)', margin: '0 20px' }} // Ancho completo con margen
+              sx={{
+                width: { xs: '100vw', sm: 'calc(100vw - 150px)' },
+                margin: { xs: '0', sm: '0 20px' },
+                overflowX: 'auto',
+              }}
             >
             <Table aria-label="Placas table">
               <TableHead>
                 <TableRow>                  
-                  <TableCell sx={{ minWidth: '500px' }}>Sucursal</TableCell>
-                  <TableCell sx={{ minWidth: '500px' }}>Placa</TableCell>
-                  <TableCell sx={{ minWidth: '150px' }}>Activo</TableCell>
+                  <TableCell sx={{ minWidth: 'auto',  sm: '500px'  }}>Sucursal</TableCell>
+                  <TableCell sx={{ minWidth: 'auto',  sm: '500px' }}>Placa</TableCell>
+                  <TableCell sx={{ minWidth: 'auto' , sm: '500px' }}>Activo</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -87,7 +91,7 @@ export default function UnidadesView() {
             </Table>
           </TableContainer>
 
-          <div className="grid justify-end mt-5 w-full">
+          <div className="grid w-full mt-5 justify-center sm:justify-end">
               <Button sx={{ width: '20rem', marginRight: '20px', background:'#002D59' }} variant="contained" endIcon={<AddCircleOutlineIcon />}>
                  Nueva Placa
               </Button>
@@ -95,34 +99,38 @@ export default function UnidadesView() {
           </div>
         ) : (
           <div>
-            <TableContainer 
-              component={Paper} 
-              sx={{ width: 'calc(100vw - 150px)', margin: '0 10px' }} 
+            <TableContainer
+              component={Paper}
+              sx={{
+                width: { xs: '100vw', sm: 'calc(100vw - 150px)' },
+                margin: { xs: '0', sm: '0 20px' },
+                overflowX: 'auto',
+              }}
             >
-            <Table aria-label="Transporte table">
-              <TableHead>
-                <TableRow>                 
-                  <TableCell sx={{ minWidth: '400px' }}>Sucursal</TableCell>
-                  <TableCell sx={{ minWidth: '400px' }}>Transporte</TableCell>
-                  <TableCell sx={{ minWidth: '150px' }}>Activo</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rowsTransport.map((row, index) => (
-                  <TableRow key={index}>                    
-                    <TableCell>{row.sucursal}</TableCell>
-                    <TableCell>{row.transporte}</TableCell>
-                    <TableCell>
-                        <Switch                         
-                          checked={!!selectedRowsTransport[index]} 
-                          onChange={() => handleCheckboxChangeTransport(index)}
-                          />              
-                    </TableCell>
+              <Table aria-label="Placas table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell sx={{ minWidth: { xs: 'auto', sm: '500px' } }}>Sucursal</TableCell>
+                    <TableCell sx={{ minWidth: { xs: 'auto', sm: '500px' } }}>Placa</TableCell>
+                    <TableCell sx={{ minWidth: { xs: 'auto', sm: '150px' } }}>Activo</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{row.sucursal}</TableCell>
+                      <TableCell>{row.placa}</TableCell>
+                      <TableCell>
+                        <Switch
+                          checked={!!selectedRowsPlacas[index]}
+                          onChange={() => handleCheckboxChangePlacas(index)}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
 
               <div className="grid w-full mt-5 justify-center sm:justify-end">
                 <Button 
