@@ -1,11 +1,35 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import type { ManifestForm } from "./ManifiestoTypes"
-import { TextField, Select, MenuItem, Button, Typography, SelectChangeEvent, InputLabel, FormControl } from "@mui/material"
+import { TextField, Select, MenuItem, Button, Typography, SelectChangeEvent, InputLabel, FormControl, Fab, Tooltip, Box } from "@mui/material"
+import AddIcon from '@mui/icons-material/Add';
 import ModalDestinos from "../../components/Destinos/ModalDestinos";
+import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import * as XLSX from 'xlsx'
 
 
 export default function Manifiesto() {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
+
+  const handleExport = () => {  
+    const data = {
+      ...formData,
+      ...residuos
+    };
+    
+    const ws = XLSX.utils.json_to_sheet([data]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Datos');
+    
+    // Exporta el archivo
+    XLSX.writeFile(wb, 'Manifiesto.xlsx');
+  };
+
+  const handleToggle = () => {
+    setOpen(!open);
+  };
 
   const [formData, setFormData] = useState<ManifestForm>({
     fechaRecoleccion: '',
@@ -21,6 +45,18 @@ export default function Manifiesto() {
     fechaEntregaScursal: '',
     observaciones: ''
   });
+
+  const [residuos, setResiduos] = useState({
+    GP01: '',
+    GP02: '',
+    GP03: '',
+    GP04: '',
+    GP05: '',
+    GP06: '',
+    GP07: ''
+  });
+
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -50,10 +86,10 @@ export default function Manifiesto() {
     console.log(formData);
   };
 
-  const handleDialogClose = () => {
-    setDialogOpen(false); // Cerrar el modal
+  const handleDialogClose = (newResiduos: SetStateAction<{ GP01: string; GP02: string; GP03: string; GP04: string; GP05: string; GP06: string; GP07: string; }>) => {
+    setDialogOpen(false);
+    setResiduos(newResiduos); // Almacena los residuos que vienen del modal
   };
-
   
   return (
       <>
@@ -188,8 +224,7 @@ export default function Manifiesto() {
             name="recat"         
             value={formData.recat}
             onChange={handleChange}
-            fullWidth
-            required
+            fullWidth  
             className="w-full"
           />
 
@@ -213,7 +248,7 @@ export default function Manifiesto() {
             value={formData.observaciones}
             onChange={handleChange}
             multiline
-            rows={4}
+            rows={2}
             fullWidth
             className="mb-4"
           />               
@@ -238,8 +273,43 @@ export default function Manifiesto() {
           <ModalDestinos
             open={dialogOpen}
             onClose={handleDialogClose}
+            residuos={residuos}
             >
          </ModalDestinos> 
+         <Box sx={{ position: 'fixed', bottom: 50, right: 50 }}>
+            {/* Botón principal que activa el menú */}
+            <Tooltip title="Abrir" arrow>
+              <Fab color="primary" aria-label="add" onClick={handleToggle}>
+                <AddIcon />
+              </Fab>
+            </Tooltip>
+
+            {/* Opciones adicionales */}
+            {open && (
+              <>
+                <Tooltip title="Exportar a Excel" arrow>
+                  <Fab
+                    color="secondary"
+                    aria-label="export"
+                    onClick={handleExport}
+                    sx={{ position: 'absolute', bottom: 60, right: 0 }}
+                  >
+                    <SimCardDownloadIcon />
+                  </Fab>
+                </Tooltip>
+                <Tooltip title="Subir Imagen" arrow>
+                  <Fab
+                    color="secondary"
+                    aria-label="upload"
+                    onClick={() => console.log('Subir Imagen')}
+                    sx={{ position: 'absolute', bottom: 120, right: 0 }}
+                  >
+                    <CloudUploadIcon />
+                  </Fab>
+                </Tooltip>
+              </>
+            )}
+          </Box>
       </>
   )
 }

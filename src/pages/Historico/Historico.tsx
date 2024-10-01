@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
 import ApplicationButtons from '../../components/AplicationButtons/ApplicationButtons';
-import {Typography, Button } from '@mui/material';
+import {Typography, Button, Fab, Tooltip } from '@mui/material';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
 import type { HistoricoTypes } from './HistoricoTypes';
 import { esES } from '@mui/x-data-grid/locales';
-
+import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
+import * as XLSX from 'xlsx'
 
 
 const columns: GridColDef[] = [
@@ -30,6 +31,20 @@ export default function Historico() {
   const [filter, setFilter] = React.useState<string>(''); // Estado para el filtro
   const [rowsSelect, setRowsSelect] = React.useState<GridRowSelectionModel>([]); 
   const navigate = useNavigate();
+
+  const exportExcel = () =>{
+    const data = rows.map((row) => ({
+      'Número': row.numeroManifiesto,
+      'Manifiesto': row.manifiesto,
+      'Estatus': row.status,
+      'Bitácora': row.bitacora,
+    }));
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Datos')
+
+    XLSX.writeFile(wb, 'Historico.xlsx');
+  }
 
   const exampleRows: (HistoricoTypes & {})[] = [
     { id: 1, numeroManifiesto: 1, manifiesto: 'Manifiesto ', status: 'En bitácora', bitacora: 'Bitácora 1' },
@@ -149,6 +164,20 @@ export default function Historico() {
             </Button>
         </div>
       )}
+
+      <div>
+        <Tooltip title='Exportar' arrow>
+          <Fab
+          color='info'
+          variant='circular'
+          aria-label='Add'
+          sx={{ position:'absolute', right: 50 }}
+          onClick={exportExcel}
+          >
+            <SimCardDownloadIcon/>
+          </Fab>
+        </Tooltip>
+      </div>
     </div>
   );
 }

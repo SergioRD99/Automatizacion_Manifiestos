@@ -4,6 +4,8 @@ import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import React from 'react';
 
+
+
 type dialogProps = {
   open: boolean;
   title: string;
@@ -47,7 +49,7 @@ export default function DialogUnidades({ open, title, nameTexfield, nameTextFiel
                     <TextField variant="outlined" label={nameTexfield} fullWidth required />
                     <TextField variant="outlined" label={nameTextField2} fullWidth required />
                 </div>
-                <div className='flex mb-2 justify-center max-md: gap-4'>
+                <div className='flex mb-2 justify-center gap-4'>
                     <Button type='submit' color='primary' variant='outlined'>Agregar</Button>
                     <Button onClick={onClose} color='primary' variant='outlined'>Cancelar</Button>
                 </div>
