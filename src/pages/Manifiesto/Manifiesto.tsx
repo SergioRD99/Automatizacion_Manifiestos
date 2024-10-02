@@ -1,96 +1,20 @@
-import { SetStateAction, useState } from "react";
-import type { ManifestForm } from "./ManifiestoTypes"
-import { TextField, Select, MenuItem, Button, Typography, SelectChangeEvent, InputLabel, FormControl, Fab, Tooltip, Box } from "@mui/material"
+import { TextField, Select, MenuItem, Button, Typography, InputLabel, FormControl, Fab, Tooltip, Box } from "@mui/material"
 import AddIcon from '@mui/icons-material/Add';
 import ModalDestinos from "../../components/Destinos/ModalDestinos";
 import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import * as XLSX from 'xlsx'
+import { useManifiesto } from "./useManifiesto";
 
 
 export default function Manifiesto() {
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [open, setOpen] = useState(false);
 
+  //hooks
+  const{
+    dialogOpen,openFab,formData,residuos,handleChange,handleSelectChange,handleSubmit,
+    handleDialogClose,handleExport,buttonFab
+  } = useManifiesto()
 
-  const handleExport = () => {  
-    const data = {
-      ...formData,
-      ...residuos
-    };
-    
-    const ws = XLSX.utils.json_to_sheet([data]);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Datos');
-    
-    // Exporta el archivo
-    XLSX.writeFile(wb, 'Manifiesto.xlsx');
-  };
-
-  const handleToggle = () => {
-    setOpen(!open);
-  };
-
-  const [formData, setFormData] = useState<ManifestForm>({
-    fechaRecoleccion: '',
-    numeroManifiesto: 0,
-    razonSocial: '',
-    municipio: '',
-    estado: '',
-    transporte: '',
-    operador: '',
-    fechaEntrega: '',
-    numeroPlacas: '',
-    recat: '',
-    fechaEntregaScursal: '',
-    observaciones: ''
-  });
-
-  const [residuos, setResiduos] = useState({
-    GP01: '',
-    GP02: '',
-    GP03: '',
-    GP04: '',
-    GP05: '',
-    GP06: '',
-    GP07: ''
-  });
-
-
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-      ...(name === 'fechaEntrega' && { fechaRecoleccion: value }), // Sincroniza las fechas
-      ...(name === 'razonSocial'&& {municipio:value}),
-    }));
-  };
-
-
-   // Cambia específico para el select
-  const handleSelectChange = (e: SelectChangeEvent<string>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-      ...(name === 'razonSocial' && { estado: value === "razonSocial1" ? "Puebla" : "" })
-    }));
-  };
- 
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setDialogOpen(true);
-    console.log(formData);
-  };
-
-  const handleDialogClose = (newResiduos: SetStateAction<{ GP01: string; GP02: string; GP03: string; GP04: string; GP05: string; GP06: string; GP07: string; }>) => {
-    setDialogOpen(false);
-    setResiduos(newResiduos); // Almacena los residuos que vienen del modal
-  };
-  
+  //vista
   return (
       <>
         <form
@@ -279,13 +203,11 @@ export default function Manifiesto() {
          <Box sx={{ position: 'fixed', bottom: 50, right: 50 }}>
             {/* Botón principal que activa el menú */}
             <Tooltip title="Abrir" arrow>
-              <Fab color="primary" aria-label="add" onClick={handleToggle}>
+              <Fab color="primary" aria-label="add" onClick={buttonFab}>
                 <AddIcon />
               </Fab>
-            </Tooltip>
-
-            {/* Opciones adicionales */}
-            {open && (
+            </Tooltip>          
+            {openFab && (
               <>
                 <Tooltip title="Exportar a Excel" arrow>
                   <Fab

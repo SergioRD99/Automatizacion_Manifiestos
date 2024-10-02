@@ -1,67 +1,27 @@
 import { Dialog, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, DialogActions, Button, TextField, Autocomplete } from "@mui/material";
-import { useState } from "react";
+import { useDestinos } from "./useDestinos";
+import type { DestintoDialogProps } from "./residuosTypes";
 
-interface DestintoDialogProps {
-  open: boolean;
-  onClose: (residuos : Residuos) => void
-  residuos:Residuos;
-}
 
-interface Residuos {
-  GP01: string;
-  GP02: string;
-  GP03: string;
-  GP04: string;
-  GP05: string;
-  GP06: string;
-  GP07: string;
-}
+
 export default function ModalDestinos({ open, onClose, residuos }: DestintoDialogProps) {
-  const [localResiduos, setLocalResiduos] = useState(residuos);
-
-
-  const [bitacoraOpen, setBitacoraOpen] = useState(false);
-  const [selectedDestino, setSelectedDestino] = useState<string | null>(null);
   
-  const destinos = ["Destino 1", "Destino 2", "Destino 3", "Destino 4"];
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    
-    setLocalResiduos((prevResiduos) => ({
-      ...prevResiduos,
-      [name]: value
-    }));
-  };
-  
-
-  const handleGuardar = () => {
-    console.log('Datos guardados:', residuos);
-    onClose(localResiduos);
-  };
-
-  const handleTerminar = () => {
-    console.log('Proceso terminado');
-  };
-
-  const handleBitacora = () => {
-    setBitacoraOpen(true);  // Abrir el dialog de bitácora
-  };
-
-  const handleBitacoraClose = () => {
-    setBitacoraOpen(false); // Cerrar el dialog de bitácora
-  };
+  const{
+    localResiduos, selectedDestino,setSelectedDestino, bitacoraOpen, destinos, handleInputChange, handleGuardar,
+    handleTerminar,handleBitacora,handleBitacoraClose
+  } = useDestinos({open,onClose,residuos})
 
   return (
     <>
     <Dialog open={open} onClose={() => onClose(localResiduos)} maxWidth="sm" fullWidth>
-      <DialogTitle className="text-center">Formulario de Residuos</DialogTitle>
+      <DialogTitle className="text-center">Residuos</DialogTitle>
       <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell className="text-center">Nombre del Residuo</TableCell>
-              <TableCell className="text-center">Valor Numérico</TableCell>
+              <TableCell className="text-center">Valor</TableCell>
+              <TableCell className="text-center">KG Peso Casco</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -75,7 +35,12 @@ export default function ModalDestinos({ open, onClose, residuos }: DestintoDialo
                     onChange={handleInputChange}
                     type="number"
                     className="w-full"
-                  />
+                  />                  
+                </TableCell>
+                <TableCell>                                         
+                <p className="font-bold">
+                      KG: {Number(localResiduos[key as keyof typeof localResiduos])+10}
+                    </p>
                 </TableCell>
               </TableRow>
             ))}

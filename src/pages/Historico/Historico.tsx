@@ -85,7 +85,7 @@ export default function Historico() {
 
   const handleSendSelected = () => {
     const selectedRows = rows.filter((row) => rowsSelect.includes(row.id));
-    navigate('/recat', { state: { selectedRows } }); // Navegar con las filas seleccionadas
+    navigate('/recat', { state: { selectedRows } });
   };
   return (
     <div className="py-5 m-5 lg:grid justify-center">
