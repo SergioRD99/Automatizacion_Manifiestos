@@ -38,7 +38,7 @@ export default function ModalDestinos({ open, onClose, residuos }: DestintoDialo
                   />                  
                 </TableCell>
                 <TableCell>                                         
-                <p className="font-bold">
+                    <p className="font-bold">
                       KG: {Number(localResiduos[key as keyof typeof localResiduos])+10}
                     </p>
                 </TableCell>
