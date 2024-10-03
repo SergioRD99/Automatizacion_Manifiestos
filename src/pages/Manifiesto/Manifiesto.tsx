@@ -24,6 +24,7 @@ export default function Manifiesto() {
           <Typography variant="h4" className="text-center mb-4">
             Generar Manifiesto
           </Typography>
+          <h1>hola nueva version</h1>
 
           {/* Fecha de Recolección */}
           {formData.fechaRecoleccion && (            

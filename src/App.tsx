@@ -4,9 +4,14 @@ import Historico from "./pages/Historico/Historico"
 import RecatView from "./pages/Recat/RecatView"
 import UnidadesView from "./pages/Unidades/UnidadesView"
 import AppBar from "./components/AppBar/AppBar"
+import { useEffect } from "react"
+import { updateSW } from "./utils/sw-update"
 
 function App() { 
-
+  useEffect(() => {
+    // Registrar el SW cuando la app se monta
+    updateSW();
+  }, []);
   return (
     <div className="app-container">
       <Router>
