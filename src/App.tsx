@@ -12,8 +12,36 @@ function App() {
     // Registrar el SW cuando la app se monta
     updateSW();
   }, []);
+
+   // Efecto para manejar el permiso de notificaciones
+   useEffect(() => {
+    // Solicitar permiso de notificación al cargar la aplicación
+    if ('Notification' in window) {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          console.log('Permiso de notificaciones concedido.');
+          
+          // Muestra una notificación
+          showNotification('Bienvenido', {
+            body: 'Gracias por permitir las notificaciones. ¡Mantente informado!',
+            icon: 'path/to/icon.png' // Reemplaza con la ruta a tu icono
+          });
+        } else {
+          console.log('Permiso de notificaciones denegado');
+        }
+      });
+    }
+  }, []);
+
+  // Función para mostrar la notificación
+  const showNotification = (title: string, options: NotificationOptions) => {
+    if (Notification.permission === 'granted') {
+      new Notification(title, options);
+    }
+  };
+
   return (
-    <div className="app-container">
+    <div className="app-container">      
       <Router>
         <AppBar />
         {/* Rutas para navegacion  */}

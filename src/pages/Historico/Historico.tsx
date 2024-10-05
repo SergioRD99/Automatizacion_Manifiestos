@@ -75,8 +75,6 @@ export default function Historico() {
         </Button>
       </div>
 
-      
-
       {/* DataGrid filtrado */}
       <div className="w-full overflow-x-auto">
         <DataGrid

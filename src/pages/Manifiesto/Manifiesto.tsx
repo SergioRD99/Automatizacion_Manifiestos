@@ -24,8 +24,8 @@ export default function Manifiesto() {
           <Typography variant="h4" className="text-center mb-4">
             Generar Manifiesto
           </Typography>
-          <h1>hola nueva version</h1>
-
+          <h1  className="font-bold text-center">hola nueva version 2 pruebas del notification</h1>
+          <h1  className="font-bold text-center">hola nueva version 2 pruebas del notification</h1>
           {/* Fecha de Recolección */}
           {formData.fechaRecoleccion && (            
           <TextField
