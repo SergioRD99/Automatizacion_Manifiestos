@@ -6,6 +6,7 @@ import UnidadesView from "./pages/Unidades/UnidadesView"
 import AppBar from "./components/AppBar/AppBar"
 import { useEffect } from "react"
 import { updateSW } from "./utils/sw-update"
+import Login from "./pages/login"
 
 function App() { 
   useEffect(() => {
@@ -15,13 +16,11 @@ function App() {
 
    // Efecto para manejar el permiso de notificaciones
    useEffect(() => {
-    // Solicitar permiso de notificación al cargar la aplicación
     if ('Notification' in window) {
       Notification.requestPermission().then(permission => {
         if (permission === 'granted') {
           console.log('Permiso de notificaciones concedido.');
           
-          // Muestra una notificación
           showNotification('Bienvenido', {
             body: 'Gracias por permitir las notificaciones. ¡Mantente informado!',
             icon: 'path/to/icon.png' // Reemplaza con la ruta a tu icono
@@ -48,6 +47,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<Manifiesto />} />
+            <Route path="/login" element={<Login/>} />
             <Route path="/historico" element={<Historico />} />
             <Route path="/recat" element={<RecatView />} />
             <Route path="/unidades" element={<UnidadesView />} />

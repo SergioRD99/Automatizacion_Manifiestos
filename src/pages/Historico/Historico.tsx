@@ -1,9 +1,10 @@
 import ApplicationButtons from '../../components/AplicationButtons/ApplicationButtons';
-import {Typography, Button, Fab, Tooltip } from '@mui/material';
+import {Typography, Button, Fab, Tooltip, TextField } from '@mui/material';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { esES } from '@mui/x-data-grid/locales';
 import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
 import { useHistorico } from './useHistorico';
+
 
 
 const columns: GridColDef[] = [
@@ -11,6 +12,9 @@ const columns: GridColDef[] = [
   { field: 'manifiesto', headerName: 'Manifiesto', width: 300 },
   { field: 'status', headerName: 'Estatus', width: 300 },
   { field: 'bitacora', headerName: 'Bitácora', width: 300 },
+  { field: 'fecha', 
+    headerName: 'Fecha', 
+    renderCell: (params) => new Date(params.value).toLocaleDateString('es-ES'), width:300},
   {
     field: 'actions',
     headerName: 'Acciones',
@@ -26,7 +30,7 @@ export default function Historico() {
 
   const{
       filter,setFilter,setRowSelect,exportExcel,filteredRows,isCheckboxEnabled,
-       handleSendSelected
+       handleSendSelected,startDate, setStartDate, endDate, setEndDate
   } = useHistorico()
   
   return (
@@ -38,7 +42,7 @@ export default function Historico() {
       </div>
 
       {/* Botones de filtro */}
-      <div className="flex flex-col md:flex-row md:justify-center md:items-center mb-5">
+      <div className="flex flex-col md:flex-row md:justify-center md:items-center mb-5">      
         <Button
           sx={{ marginRight: '1rem', backgroundColor: filter === 'En bitácora' ? 'blue' : 'transparent', color: filter === 'En bitácora' ? 'white' : 'black' }}
           variant="outlined"
@@ -72,8 +76,22 @@ export default function Historico() {
           className="ml-2"
         >
           Mostrar Todos
-        </Button>
+        </Button>      
       </div>
+
+      <div className='flex flex-col md:flex-row md:justify-center justify-center gap-5 mb-5' style={{marginRight:'1rem'}}>
+       <TextField
+          type='date'
+          value={startDate ? startDate.toISOString().split('T')[0] : ''}
+          onChange={(e) => setStartDate(e.target.value ? new Date(e.target.value) : null)}
+        />
+
+        <TextField
+          type='date'
+          value={endDate ? endDate.toISOString().split('T')[0] : ''}
+          onChange={(e) => setEndDate(e.target.value ? new Date(e.target.value) : null)}
+        />
+       </div>
 
       {/* DataGrid filtrado */}
       <div className="w-full overflow-x-auto">

@@ -4,6 +4,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Button, IconButton, Menu, MenuItem} from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
+
 
 
 export default function AppBar() {
@@ -25,11 +27,13 @@ export default function AppBar() {
         
           <div className="hidden md:flex gap-4">
               <Button className="flex-col" style={{color:'white', fontSize:'0.7rem'}}>
-                  <AccountCircleIcon/>
-                  <h1>Iniciar sesión</h1>    
+                <Link to="/login" style={{ textDecoration: 'none', color: 'inherit', textAlign: 'center' }}>
+                  <AccountCircleIcon />
+                  <h1 style={{ margin: 0 }}>Iniciar sesión</h1>
+                </Link>
               </Button>
               <Button className="flex-col" style={{color:'white', fontSize:'0.7rem'}}>
-                  <LogoutIcon/>
+                  <LogoutIcon/>                  
                   <h1>Salir</h1>      
               </Button>
           </div>       

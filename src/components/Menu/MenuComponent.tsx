@@ -11,7 +11,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export default function MenuComponent() {
     const [open, setOpen] = React.useState(false)
-
+    
     const handleDrawerClose = () => {
       setOpen(false);
     };
